@@ -1,6 +1,8 @@
+// @import '../variables'
+
 .App {
   font-family: 'Russo One', sans-serif;
-  color: yellow;
+  color: #ffd500;
   height: 100%;
   width: 100%;
   display: grid;
@@ -26,6 +28,12 @@
   // border: solid pink 2px;
   padding: 1.5rem;
   font-weight: lighter;
+}
+
+.crawl {
+  font-family: 'Nanum Gothic', sans-serif;
+  line-height: 150%;
+  // font-weight: bold;
 }
 
 .btn-container {

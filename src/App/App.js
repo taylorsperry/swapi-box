@@ -11,8 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      film: '',
-      people: [],
+      film: {},
+      // people: [],
       planets: [],
       vehicles: [],
       favorites: []
@@ -39,13 +39,17 @@ class App extends Component {
     this.setState({film: {title: film.title, crawl: film.opening_crawl, date: film.release_date}})
   }
 
+  // setPeople = () => {
+  //   console.log('hooked up')
+  // }
+
   render() {
     const {film} = this.state;
     return (
       <div className="App">
         <Header />
         <Film film={film} />
-        <ButtonContainer />
+        <ButtonContainer setPeople={this.setPeople}/>
         <CardContainer />
       </div>
     );
