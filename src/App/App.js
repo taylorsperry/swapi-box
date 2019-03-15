@@ -29,13 +29,14 @@ class App extends Component {
   fetchFilm = (films) => {
     return fetch(films)
       .then(response => response.json())
-      .then(parsedFilms => this.selectFilm(parsedFilms))
+      .then(parsedFilms => this.selectFilm(parsedFilms.results))
   };
 
   selectFilm = (parsedFilms) => {
-    let max = parsedFilms.results.length;
+    console.log(parsedFilms)
+    let max = parsedFilms.length;
     let index = Math.floor(Math.random() * Math.floor(max));
-    let film = parsedFilms.results[index];
+    let film = parsedFilms[index];
     this.setState({film: {title: film.title, crawl: film.opening_crawl, date: film.release_date}})
   }
 
