@@ -15,7 +15,7 @@ class ButtonContainer extends Component {
             .then(parsedPeople => this.refinePeople(parsedPeople.results))
             .then(refinedPeople => this.fetchSpecies(refinedPeople))
             .then(withSpecies => this.fetchHomeworld(withSpecies))
-            .then(withHomeworld => this.props.activeInfo(withHomeworld))
+            .then(withHomeworld => this.props.makeActive(withHomeworld, 'people'))
             .catch(error => {
                 throw new Error(error.message)
             })

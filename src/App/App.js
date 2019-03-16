@@ -12,11 +12,9 @@ class App extends Component {
     super();
     this.state = {
       film: {},
-      people: [],
-      // planets: [],
-      // vehicles: [],
       // favorites: [],
-      active: ''
+      activeName: '',
+      activeItems: []
     }
   };
 
@@ -43,21 +41,21 @@ class App extends Component {
     this.setState({film: {title: film.title, crawl: film.opening_crawl, date: film.release_date}})
   }
 
-  activeInfo = (category) => {
+  makeActive = (categoryInfo, categoryName) => {
     this.setState({
-      people: category,
-      active: 'people'
+      activeName: categoryName,
+      activeItems: categoryInfo
     }, () => console.log(this.state))
   }
 
   render() {
-    const {film, people} = this.state;
+    const {film, activeItems, activeName} = this.state;
     return (
       <div className="App">
         <Header />
         <Film film={film} />
-        <ButtonContainer activeInfo={this.activeInfo}/>
-        <CardContainer activeCat={people}/>
+        <ButtonContainer makeActive={this.makeActive}/>
+        <CardContainer activeName={activeName} activeItems={activeItems}/>
       </div>
     );
   }

@@ -1,12 +1,17 @@
 import React from 'react';
 import Card from '../Card/Card.js'
 
-const CardContainer = ({activeCat}) => {
-    const activeCards = activeCat.map((activeCard, i) => (<Card key={i} {...activeCard} />))
+const CardContainer = (props) => {
+    const activeName = props.activeName
+    const activeItems = props.activeItems
+    const activeCards = activeItems.map((activeCard, i) => (<Card key={i} {...activeCard} />))
     return (
-        <section className='card-container'>
-            {activeCards}
-        </section>
+        <div>
+            <h2>{activeName}</h2>
+            <section className='card-container'>
+                {activeCards}
+            </section>
+        </div>
     );
 };
 

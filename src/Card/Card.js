@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Card = ({name, homeworld, species, population}) => {
-    
+const Card = (props) => {
+    const {name, homeworld, species, population} = props;
     return (
         <article className='card'>
-            <p>{name}</p>
+            <h3>{name}</h3>
             <p>{homeworld}</p>
             <p>{species}</p>
             <p>{population}</p>
