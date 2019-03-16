@@ -52,7 +52,7 @@ class ButtonContainer extends Component {
     }
 
     //fetching planets 
-    
+
     fetchPlanets = () => {
         const url = 'https://swapi.co/api/planets'
         fetch(url)
