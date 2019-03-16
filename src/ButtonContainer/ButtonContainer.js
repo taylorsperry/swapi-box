@@ -13,14 +13,19 @@ class ButtonContainer extends Component {
         fetch(url)
             .then(response => response.json())
             .then(parsedPeople => this.refinePeople(parsedPeople.results))
-        // this.props.setPeople()
+            .then(refinedPeople => this.fetchSpecies(refinedPeople))
+            .then(withSpecies => this.fetchHomeworld(withSpecies))
+            .then(withHomeworld => this.props.activeInfo(withHomeworld))
+            .catch(error => {
+                throw new Error(error.message)
+            })
     }
 
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
             return {name: person.name, homeworld: person.homeworld, species: person.species}
         })
-        this.fetchSpecies(refinedPeople)
+        return refinedPeople
     }
 
     fetchSpecies = (refinedPeople) => {
@@ -28,20 +33,18 @@ class ButtonContainer extends Component {
             return fetch(person.species)
                 .then(response => response.json())
                 .then(parsedSpecies => ({...person, species: parsedSpecies.name}))
-        })
-        console.log(Promise.all(species))
+            })
         return Promise.all(species)
     }
 
-    // fetchSpecies = (refinedPeople) => {
-    //     let species = refinedPeople.map(person => {
-    //         return fetch(person.homeworld)
-    //             .then(response => response.json())
-    //             .then(parsedHomeworld => ({...person, homeworld: parsedHomeworld.name}))
-    //     })
-    //     console.log(Promise.all(species))
-    //     return Promise.all(species)
-    // }
+    fetchHomeworld = (species) => {
+        let homeworld = species.map(person => {
+            return fetch(person.homeworld)
+                .then(response => response.json())
+                .then(parsedHomeworld => ({...person, homeworld: parsedHomeworld.name, population: parsedHomeworld.population}))
+            })
+        return Promise.all(homeworld)
+    }
 
     render() {
     return (

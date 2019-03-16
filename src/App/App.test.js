@@ -10,21 +10,38 @@ describe('App', () => {
     })
   
     describe('fetchFilm', () => {
-    let mockUrl = 'www.starwars.com'
-    let mockData = [{title: 'A New Hope'}]
-    fetch = jest.fn().mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve(mockData)
-    }))
+      let mockUrl = 'www.starwars.com'
+      let mockData = [{title: 'A New Hope'}]
 
-    it('calls fetch with the correct url', () => {
-      //execution 
-      wrapper.instance().fetchFilm(mockUrl)
+      it('calls fetch with the correct url', () => {
+        //setup
+        fetch = jest.fn().mockImplementation(() => Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockData)
+        }))
 
-      //expectation
-      expect(fetch).toHaveBeenCalledWith(mockUrl)
+        //execution 
+        wrapper.instance().fetchFilm(mockUrl)
+
+        //expectation
+        expect(fetch).toHaveBeenCalledWith(mockUrl)
+      })
+
+      it('throws an error when fetch is not ok', () => {
+        //setup
+        fetch = jest.fn().mockImplementation(() => Promise.resolve({
+          ok: false
+        }))
+
+        //execution 
+        wrapper.instance().fetchFilm(mockUrl)
+          .catch(error => {
+            //expectation 
+            expect(error.message).toBe(error.message)
+          })
+      })
     })
-  })
-  
+    
   describe('selectFilm', () => {
     it('selects a random film from an array of films and sets it to state', () => {
       //setup

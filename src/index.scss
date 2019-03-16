@@ -1,5 +1,7 @@
 @import 'variables';
 @import './App/App';
+@import './CardContainer/CardContainer';
+@import './Card/Card';
 
 body {
   background: $background;

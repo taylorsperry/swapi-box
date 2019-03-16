@@ -11,12 +11,11 @@
     "film btn-container"
     "film card-container";
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 100px 1fr 3fr;
+  grid-template-rows: 100px 150px 1fr;
 }
 
 .header {
   grid-area: header;
-  // border: solid yellow 2px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +24,6 @@
 
 .film {
   grid-area: film;
-  // border: solid pink 2px;
   padding: 1.5rem;
   font-weight: lighter;
 }
@@ -33,12 +31,10 @@
 .crawl {
   font-family: 'Nanum Gothic', sans-serif;
   line-height: 150%;
-  // font-weight: bold;
 }
 
 .btn-container {
   grid-area: btn-container;
-  // border: solid purple 2px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -56,7 +52,3 @@ button {
   cursor: pointer;
 }
 
-.card-container {
-  grid-area: card-container;
-  border: solid white 2px;
-}

@@ -12,10 +12,11 @@ class App extends Component {
     super();
     this.state = {
       film: {},
-      // people: [],
-      planets: [],
-      vehicles: [],
-      favorites: []
+      people: [],
+      // planets: [],
+      // vehicles: [],
+      // favorites: [],
+      active: ''
     }
   };
 
@@ -30,28 +31,33 @@ class App extends Component {
     return fetch(films)
       .then(response => response.json())
       .then(parsedFilms => this.selectFilm(parsedFilms.results))
+      .catch(error => {
+        throw new Error(error.message)
+      })
   };
 
   selectFilm = (parsedFilms) => {
-    console.log(parsedFilms)
     let max = parsedFilms.length;
     let index = Math.floor(Math.random() * Math.floor(max));
     let film = parsedFilms[index];
     this.setState({film: {title: film.title, crawl: film.opening_crawl, date: film.release_date}})
   }
 
-  // setPeople = () => {
-  //   console.log('hooked up')
-  // }
+  activeInfo = (category) => {
+    this.setState({
+      people: category,
+      active: 'people'
+    }, () => console.log(this.state))
+  }
 
   render() {
-    const {film} = this.state;
+    const {film, people} = this.state;
     return (
       <div className="App">
         <Header />
         <Film film={film} />
-        <ButtonContainer setPeople={this.setPeople}/>
-        <CardContainer />
+        <ButtonContainer activeInfo={this.activeInfo}/>
+        <CardContainer activeCat={people}/>
       </div>
     );
   }
