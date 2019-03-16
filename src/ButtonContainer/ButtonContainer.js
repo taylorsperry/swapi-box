@@ -8,6 +8,8 @@ class ButtonContainer extends Component {
         }
     }
 
+    //fetching people
+
     fetchPeople = () => {
         const url = 'https://swapi.co/api/people'
         fetch(url)
@@ -23,7 +25,10 @@ class ButtonContainer extends Component {
 
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
-            return {name: person.name, homeworld: person.homeworld, species: person.species}
+            return {
+                name: person.name, 
+                homeworld: person.homeworld, 
+                species: person.species}
         })
         return refinedPeople
     }
@@ -46,11 +51,46 @@ class ButtonContainer extends Component {
         return Promise.all(homeworld)
     }
 
+    //fetching planets 
+    
+    fetchPlanets = () => {
+        const url = 'https://swapi.co/api/planets'
+        fetch(url)
+            .then(response => response.json())
+            .then(parsedPlanets => this.refinePlanets(parsedPlanets.results))
+            // .then(refinedPlanets => console.log(refinedPlanets))
+            .then(refinedPlanets => this.fetchResidents(refinedPlanets))
+    }
+
+    refinePlanets = (parsedPlanets) => {
+        let refinedPlanets = parsedPlanets.map(planet => {
+            return {
+                name: planet.name, 
+                terrain: planet.terrain, 
+                population: planet.population, 
+                climate: planet.climate, 
+                residents: planet.residents
+            }
+        })
+        return refinedPlanets
+    }
+
+    fetchResidents = (planets) => {
+        planets.forEach(planet => {
+            let residents = planet.residents;
+            residents.map(resident => {
+                fetch(resident)
+                    .then(response => response.json())
+                    .then(parsedResident => console.log(parsedResident.name))
+            })
+        })
+    }
+
     render() {
     return (
         <section className="btn-container">
             <button onClick={this.fetchPeople}>People</button>
-            <button>Planets</button>
+            <button onClick={this.fetchPlanets}>Planets</button>
             <button>Vehicles</button>
             <button>Favorites</button>
         </section>
