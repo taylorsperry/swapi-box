@@ -56,7 +56,7 @@ class App extends Component {
 
   displayFavorites = () => {
     this.setState({
-      activeName: 'favorites',
+      activeName: 'Favorites',
       activeItems: this.state.favorites
     })
   }

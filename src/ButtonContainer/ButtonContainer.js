@@ -129,13 +129,23 @@ class ButtonContainer extends Component {
         return refinedVehicles
     }
 
+    //favorites 
+
+    selectFavorites = () => {
+        this.setState({
+            active: 'Favorites'
+        }, () => {
+            this.props.displayFavs()
+        })
+    }
+
     render() {
     return (
         <section className="btn-container">
             <button className={this.state.active === 'People' ? 'button active' : 'button'} name='People'onClick={this.fetchPeople}>People</button>
             <button className={this.state.active === 'Planets' ? 'button active' : 'button'} name='Planets' onClick={this.fetchPlanets}>Planets</button>
             <button className={this.state.active === 'Vehicles' ? 'button active' : 'button'} name='Vehicles'onClick={this.fetchVehicles}>Vehicles</button>
-            <button onClick={this.props.displayFavs}>{this.props.favCount} Favorites</button>
+            <button className={this.state.active === 'Favorites' ? 'button active' : 'button'} name='Favorites'onClick={this.selectFavorites}>{this.props.favCount} Favorites</button>
         </section>
     );
     }
