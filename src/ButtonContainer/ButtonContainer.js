@@ -24,7 +24,7 @@ class ButtonContainer extends Component {
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
             return {
-                id: Date.now(),
+                cardStyle: 'people',
                 name: person.name, 
                 homeworld: person.homeworld, 
                 species: person.species}
@@ -64,7 +64,7 @@ class ButtonContainer extends Component {
     refinePlanets = (parsedPlanets) => {
         let refinedPlanets = parsedPlanets.map(planet => {
             return {
-                id: Date.now(),
+                cardStyle: 'planets',
                 planetName: planet.name, 
                 terrain: planet.terrain, 
                 planetPopulation: planet.population, 
@@ -106,7 +106,7 @@ class ButtonContainer extends Component {
     refineVehicles = (parsedVehicles) => {
         let refinedVehicles = parsedVehicles.map(vehicle => {
             return {
-                id: Date.now(),
+                cardStyle: 'vehicles',
                 vehicleName: vehicle.name,
                 model: vehicle.model,
                 vehicleClass: vehicle.vehicle_class,
@@ -123,7 +123,7 @@ class ButtonContainer extends Component {
             <button onClick={this.fetchPeople}>People</button>
             <button onClick={this.fetchPlanets}>Planets</button>
             <button onClick={this.fetchVehicles}>Vehicles</button>
-            <button>Favorites</button>
+            <button onClick={this.props.displayFavs}>{this.props.favCount} Favorites</button>
         </section>
     );
     }

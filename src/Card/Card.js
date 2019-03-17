@@ -1,16 +1,17 @@
 import React from 'react'
 
 const Card = (props) => {
-    const {activeName} = props
+    const {activeCard} = props
+    let style = activeCard.cardStyle
     ;
-    switch(activeName) {
+    switch(style) {
         case 'people':
-            const {name, homeworld, species, population} = props
+            const {name, homeworld, species, population} = activeCard
             return (
                 <article className='card'>
                     <h3 className='card-title'>
                         {name}
-                        <button className='fav-btn'>+</button>
+                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
                     <p>Homeworld: {homeworld}</p>
                     <p>Species: {species}</p>
@@ -18,13 +19,13 @@ const Card = (props) => {
                 </article>
             )
         case 'planets': 
-            const {planetName, terrain, planetPopulation, climate} = props
-            const allResidents = props.residents
+            const {planetName, terrain, planetPopulation, climate} = activeCard
+            const allResidents = activeCard.residents
             return (
                 <article className='card'>
                     <h3 className='card-title'>
                         {planetName}
-                        <button className='fav-btn'>+</button>
+                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
                     <p>Terrain: {terrain}</p>
                     <p>Population: {planetPopulation}</p>
@@ -39,12 +40,12 @@ const Card = (props) => {
                 </article>
             )
         case 'vehicles':
-            const {vehicleName, model, vehicleClass, passengers} = props
+            const {vehicleName, model, vehicleClass, passengers} = activeCard
             return (
                 <article className='card'>
                     <h3 className='card-title'>
                         {vehicleName}
-                        <button className='fav-btn'>+</button>
+                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
                     <p>Model: {model}</p>
                     <p>Class: {vehicleClass}</p>

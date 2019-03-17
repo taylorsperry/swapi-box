@@ -12,7 +12,7 @@ class App extends Component {
     super();
     this.state = {
       film: {},
-      // favorites: [],
+      favorites: [],
       activeName: '',
       activeItems: []
     }
@@ -48,14 +48,27 @@ class App extends Component {
     }, () => console.log(this.state))
   }
 
+  addFavorite = (activeCard) => {
+    this.setState({
+      favorites:[...this.state.favorites, activeCard]
+    })
+  }
+
+  displayFavorites = () => {
+    this.setState({
+      activeName: 'favorites',
+      activeItems: this.state.favorites
+    })
+  }
+
   render() {
     const {film, activeItems, activeName} = this.state;
     return (
       <div className="App">
         <Header />
         <Film film={film} />
-        <ButtonContainer makeActive={this.makeActive}/>
-        <CardContainer activeName={activeName} activeItems={activeItems}/>
+        <ButtonContainer makeActive={this.makeActive} favCount={this.state.favorites.length} displayFavs={this.displayFavorites}/>
+        <CardContainer activeName={activeName} activeItems={activeItems} addFavorite={this.addFavorite}/>
       </div>
     );
   }
