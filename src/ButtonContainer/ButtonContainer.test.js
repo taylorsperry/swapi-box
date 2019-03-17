@@ -24,10 +24,9 @@ describe('ButtonContainer', () => {
         "edited": "2014-12-20T21:17:50.309000Z"
     }]
     
-
     beforeEach(() => {
         wrapper = shallow(<ButtonContainer makeActive={makeActiveMock}/>)
-        window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+        fetch = jest.fn().mockImplementation(() => Promise.resolve({
             ok: true,
             json: () => Promise.resolve()
         }))
@@ -35,21 +34,17 @@ describe('ButtonContainer', () => {
 
     describe('fetchPeople', () => {
         it('calls fetch with correct url', () => {
-            
-        //setup
-        let mockData = [{name: 'R2D2'}]
         
-            
         //execution
         wrapper.instance().fetchPeople()
         
         //expectation
-        expect(window.fetch).toHaveBeenCalledWith('https://swapi.co/api/people')
+        expect(fetch).toHaveBeenCalledWith('https://swapi.co/api/people')
         })
 
         it('should call makeActive with the fetched data as a param', () => {
         //setup
-        let fetchPeople = jest.fn(() => mockPeople)
+        // let fetchPeople = jest.fn(() => mockPeople)
         
         //execution
         wrapper.instance().fetchPeople()
@@ -63,8 +58,6 @@ describe('ButtonContainer', () => {
         it('returns an array of objects with keys of name, homeworld, and species', () => {
             
         //setup
-        const refinePeople = jest.fn();
-
         let mockRefined = [{
             "name": "Luke Skywalker",
             "homeworld": "https://swapi.co/api/planets/1/",
