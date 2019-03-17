@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
+import { promised } from 'q';
 
 class ButtonContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            people: []
-        }
     }
 
     //fetching people
@@ -26,6 +24,7 @@ class ButtonContainer extends Component {
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
             return {
+                cardStyle: 'people',
                 name: person.name, 
                 homeworld: person.homeworld, 
                 species: person.species}
@@ -58,16 +57,17 @@ class ButtonContainer extends Component {
         fetch(url)
             .then(response => response.json())
             .then(parsedPlanets => this.refinePlanets(parsedPlanets.results))
-            // .then(refinedPlanets => console.log(refinedPlanets))
             .then(refinedPlanets => this.fetchResidents(refinedPlanets))
+            .then(withResidentNames => this.props.makeActive(withResidentNames, 'planets'))
     }
 
     refinePlanets = (parsedPlanets) => {
         let refinedPlanets = parsedPlanets.map(planet => {
             return {
-                name: planet.name, 
+                cardStyle: 'planets',
+                planetName: planet.name, 
                 terrain: planet.terrain, 
-                population: planet.population, 
+                planetPopulation: planet.population, 
                 climate: planet.climate, 
                 residents: planet.residents
             }
@@ -76,14 +76,45 @@ class ButtonContainer extends Component {
     }
 
     fetchResidents = (planets) => {
-        planets.forEach(planet => {
-            let residents = planet.residents;
-            residents.map(resident => {
-                fetch(resident)
-                    .then(response => response.json())
-                    .then(parsedResident => console.log(parsedResident.name))
-            })
+        let withPlanets = planets.map(planet => {
+            let residentApis = planet.residents;
+            return this.getNames(residentApis)
+                .then(unresolvedNames => ({...planet, residents: unresolvedNames}))
         })
+        return Promise.all(withPlanets)
+    }
+
+    getNames = (residentApis) => {
+        let residentNames = residentApis.map(residentApi => {
+            return fetch(residentApi)
+                .then(response => response.json())
+                .then(parsedName => parsedName.name)
+        })
+        return Promise.all(residentNames)
+    }
+    
+    //fetching vehicles
+
+    fetchVehicles = () => {
+        const url = 'https://swapi.co/api/vehicles'
+        fetch(url)
+            .then(response => response.json())
+            .then(parsedVehicles => this.refineVehicles(parsedVehicles.results))
+            .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'vehicles'))
+    }
+
+    refineVehicles = (parsedVehicles) => {
+        let refinedVehicles = parsedVehicles.map(vehicle => {
+            return {
+                cardStyle: 'vehicles',
+                vehicleName: vehicle.name,
+                model: vehicle.model,
+                vehicleClass: vehicle.vehicle_class,
+                passengers: vehicle.passengers,
+                
+            }
+        })
+        return refinedVehicles
     }
 
     render() {
@@ -91,8 +122,8 @@ class ButtonContainer extends Component {
         <section className="btn-container">
             <button onClick={this.fetchPeople}>People</button>
             <button onClick={this.fetchPlanets}>Planets</button>
-            <button>Vehicles</button>
-            <button>Favorites</button>
+            <button onClick={this.fetchVehicles}>Vehicles</button>
+            <button onClick={this.props.displayFavs}>{this.props.favCount} Favorites</button>
         </section>
     );
     }
