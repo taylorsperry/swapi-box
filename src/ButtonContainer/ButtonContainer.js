@@ -4,6 +4,9 @@ import { promised } from 'q';
 class ButtonContainer extends Component {
     constructor(props) {
         super(props);
+            this.state = {
+                active: ''
+            }
     }
 
     //fetching people
@@ -15,16 +18,19 @@ class ButtonContainer extends Component {
             .then(parsedPeople => this.refinePeople(parsedPeople.results))
             .then(refinedPeople => this.fetchSpecies(refinedPeople))
             .then(withSpecies => this.fetchHomeworld(withSpecies))
-            .then(withHomeworld => this.props.makeActive(withHomeworld, 'people'))
+            .then(withHomeworld => this.props.makeActive(withHomeworld, 'People'))
             .catch(error => {
                 throw new Error(error.message)
             })
+        this.setState({
+            active: 'People'
+        })
     }
 
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
             return {
-                cardStyle: 'people',
+                cardStyle: 'People',
                 name: person.name, 
                 homeworld: person.homeworld, 
                 species: person.species}
@@ -58,13 +64,16 @@ class ButtonContainer extends Component {
             .then(response => response.json())
             .then(parsedPlanets => this.refinePlanets(parsedPlanets.results))
             .then(refinedPlanets => this.fetchResidents(refinedPlanets))
-            .then(withResidentNames => this.props.makeActive(withResidentNames, 'planets'))
+            .then(withResidentNames => this.props.makeActive(withResidentNames, 'Planets'))
+        this.setState({
+            active: 'Planets'
+        })
     }
 
     refinePlanets = (parsedPlanets) => {
         let refinedPlanets = parsedPlanets.map(planet => {
             return {
-                cardStyle: 'planets',
+                cardStyle: 'Planets',
                 planetName: planet.name, 
                 terrain: planet.terrain, 
                 planetPopulation: planet.population, 
@@ -100,13 +109,16 @@ class ButtonContainer extends Component {
         fetch(url)
             .then(response => response.json())
             .then(parsedVehicles => this.refineVehicles(parsedVehicles.results))
-            .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'vehicles'))
+            .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'Vehicles'))
+        this.setState({
+            active: 'Vehicles'
+        })
     }
 
     refineVehicles = (parsedVehicles) => {
         let refinedVehicles = parsedVehicles.map(vehicle => {
             return {
-                cardStyle: 'vehicles',
+                cardStyle: 'Vehicles',
                 vehicleName: vehicle.name,
                 model: vehicle.model,
                 vehicleClass: vehicle.vehicle_class,
@@ -120,9 +132,9 @@ class ButtonContainer extends Component {
     render() {
     return (
         <section className="btn-container">
-            <button onClick={this.fetchPeople}>People</button>
-            <button onClick={this.fetchPlanets}>Planets</button>
-            <button onClick={this.fetchVehicles}>Vehicles</button>
+            <button className={this.state.active === 'People' ? 'button active' : 'button'} name='People'onClick={this.fetchPeople}>People</button>
+            <button className={this.state.active === 'Planets' ? 'button active' : 'button'} name='Planets' onClick={this.fetchPlanets}>Planets</button>
+            <button className={this.state.active === 'Vehicles' ? 'button active' : 'button'} name='Vehicles'onClick={this.fetchVehicles}>Vehicles</button>
             <button onClick={this.props.displayFavs}>{this.props.favCount} Favorites</button>
         </section>
     );

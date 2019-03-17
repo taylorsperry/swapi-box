@@ -5,7 +5,7 @@ const Card = (props) => {
     let style = activeCard.cardStyle
     ;
     switch(style) {
-        case 'people':
+        case 'People':
             const {name, homeworld, species, population} = activeCard
             return (
                 <article className='card'>
@@ -27,7 +27,7 @@ const Card = (props) => {
                     </p>
                 </article>
             )
-        case 'planets': 
+        case 'Planets': 
             const {planetName, terrain, planetPopulation, climate} = activeCard
             const allResidents = activeCard.residents
             return (
@@ -58,7 +58,7 @@ const Card = (props) => {
                     </ul>
                 </article>
             )
-        case 'vehicles':
+        case 'Vehicles':
             const {vehicleName, model, vehicleClass, passengers} = activeCard
             return (
                 <article className='card'>
