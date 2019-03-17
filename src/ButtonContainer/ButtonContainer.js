@@ -4,9 +4,6 @@ import { promised } from 'q';
 class ButtonContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            people: []
-        }
     }
 
     //fetching people
@@ -27,6 +24,7 @@ class ButtonContainer extends Component {
     refinePeople = (parsedPeople) => {
         let refinedPeople = parsedPeople.map(person => {
             return {
+                id: Date.now(),
                 name: person.name, 
                 homeworld: person.homeworld, 
                 species: person.species}
@@ -66,6 +64,7 @@ class ButtonContainer extends Component {
     refinePlanets = (parsedPlanets) => {
         let refinedPlanets = parsedPlanets.map(planet => {
             return {
+                id: Date.now(),
                 planetName: planet.name, 
                 terrain: planet.terrain, 
                 planetPopulation: planet.population, 
@@ -92,14 +91,38 @@ class ButtonContainer extends Component {
                 .then(parsedName => parsedName.name)
         })
         return Promise.all(residentNames)
-    }   
+    }
+    
+    //fetching vehicles
+
+    fetchVehicles = () => {
+        const url = 'https://swapi.co/api/vehicles'
+        fetch(url)
+            .then(response => response.json())
+            .then(parsedVehicles => this.refineVehicles(parsedVehicles.results))
+            .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'vehicles'))
+    }
+
+    refineVehicles = (parsedVehicles) => {
+        let refinedVehicles = parsedVehicles.map(vehicle => {
+            return {
+                id: Date.now(),
+                vehicleName: vehicle.name,
+                model: vehicle.model,
+                vehicleClass: vehicle.vehicle_class,
+                passengers: vehicle.passengers,
+                
+            }
+        })
+        return refinedVehicles
+    }
 
     render() {
     return (
         <section className="btn-container">
             <button onClick={this.fetchPeople}>People</button>
             <button onClick={this.fetchPlanets}>Planets</button>
-            <button>Vehicles</button>
+            <button onClick={this.fetchVehicles}>Vehicles</button>
             <button>Favorites</button>
         </section>
     );

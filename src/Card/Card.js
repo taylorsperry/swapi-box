@@ -12,9 +12,9 @@ const Card = (props) => {
                         {name}
                         <button className='fav-btn'>+</button>
                     </h3>
-                    <p>{homeworld}</p>
-                    <p>{species}</p>
-                    <p>{population}</p>
+                    <p>Homeworld: {homeworld}</p>
+                    <p>Species: {species}</p>
+                    <p>Population: {population}</p>
                 </article>
             )
         case 'planets': 
@@ -26,20 +26,34 @@ const Card = (props) => {
                         {planetName}
                         <button className='fav-btn'>+</button>
                     </h3>
-                    <p>{terrain}</p>
-                    <p>{planetPopulation}</p>
-                    <p>{climate}</p>
-                    <ul>{allResidents.map((resident, i) => {
-                        return (
-                            <li>{i} {resident}</li>
+                    <p>Terrain: {terrain}</p>
+                    <p>Population: {planetPopulation}</p>
+                    <p>Climate: {climate}</p>
+                    <ul>Residents: 
+                        {allResidents.map((resident, i) => {
+                            return (
+                                <li key={i}>{resident}</li>
+                            )}
                         )}
-                    )}
                     </ul>
+                </article>
+            )
+        case 'vehicles':
+            const {vehicleName, model, vehicleClass, passengers} = props
+            return (
+                <article className='card'>
+                    <h3 className='card-title'>
+                        {vehicleName}
+                        <button className='fav-btn'>+</button>
+                    </h3>
+                    <p>Model: {model}</p>
+                    <p>Class: {vehicleClass}</p>
+                    <p>Passengers: {passengers}</p>
                 </article>
             )
         default: 
             return (
-                <article>
+                <article className='card'>
                     'Something went wrong'
                 </article>
             )
