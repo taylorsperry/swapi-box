@@ -13,9 +13,18 @@ const Card = (props) => {
                         {name}
                         <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
-                    <p>Homeworld: {homeworld}</p>
-                    <p>Species: {species}</p>
-                    <p>Population: {population}</p>
+                    <p className='card-detail'>
+                        <span className='label'>Homeworld: </span> 
+                        {homeworld}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Species: </span>
+                        {species}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Population: </span>
+                        {population}
+                    </p>
                 </article>
             )
         case 'planets': 
@@ -27,13 +36,23 @@ const Card = (props) => {
                         {planetName}
                         <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
-                    <p>Terrain: {terrain}</p>
-                    <p>Population: {planetPopulation}</p>
-                    <p>Climate: {climate}</p>
-                    <ul>Residents: 
+                    <p className='card-detail'>
+                        <span className='label'>Terrain: </span>
+                        {terrain}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Population: </span>
+                        {planetPopulation}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Climate: </span>
+                        {climate}
+                    </p>
+                    <ul className='card-detail ul'>
+                        <span className='label'>Residents: </span>
                         {allResidents.map((resident, i) => {
                             return (
-                                <li key={i}>{resident}</li>
+                                <li className='li' key={i}> {resident},</li>
                             )}
                         )}
                     </ul>
@@ -47,9 +66,18 @@ const Card = (props) => {
                         {vehicleName}
                         <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
                     </h3>
-                    <p>Model: {model}</p>
-                    <p>Class: {vehicleClass}</p>
-                    <p>Passengers: {passengers}</p>
+                    <p className='card-detail'>
+                        <span className='label'>Model: </span>
+                        {model}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Class: </span>
+                        {vehicleClass}
+                    </p>
+                    <p className='card-detail'>
+                        <span className='label'>Passengers: </span>
+                        {passengers}
+                    </p>
                 </article>
             )
         default: 

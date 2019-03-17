@@ -1,16 +1,18 @@
 .card {
-    border: solid white 2px;
-    width: 175px;
-    height: 200px;
-    padding: 10px;
-    margin: 10px;
+    
+    border-radius: 25px;
+    width: 250px;
+    height: 275px;
+    padding: 0px;
+    margin: 15px;
+    background-color: #FFE5C0;
 }
 
 .fav-btn {
-    border: solid white 1px;
+    border: solid #FFA72B 1px;
     border-radius: 50%;
-    background-color: transparent;
-    color: white;
+    background-color: black;
+    color: #FFA72B;
     font-family: 'Russo One', sans-serif;
     font-size: 1.5rem;
     width: 30px;
@@ -23,8 +25,37 @@
 }
 
 .card-title {
+    color: black;
     display: flex;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
+    align-items: center;
+    background-color: #17A694;
+    margin: 0px;
+    border-radius: 25px 25px 0px 0px;
+    padding: 20px 15px 15px 15px;
 }
+
+.card-detail {
+    color: black;
+    padding-left: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.label {
+    font-family: 'Russo One', sans-serif;
+}
+
+.ul {
+    list-style: none;
+    
+}
+
+.li {
+    display: inline;
+}
+
+// .li:last-child {
+//     color: pink;
+// }
 

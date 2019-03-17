@@ -2,7 +2,7 @@
 
 .App {
   font-family: 'Russo One', sans-serif;
-  color: #ffd500;
+  color: #FFA72B;
   height: 100%;
   width: 100%;
   display: grid;
@@ -38,13 +38,15 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  // background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(./kai-pilger-787888-unsplash.jpg);
+  // background-size: 750px;
 }
 
 button {
-  border: solid white 1px;
+  border: solid #FFA72B 1px;
   border-radius: 50px;
-  background-color: transparent;
-  color: white;
+  background-color: black;
+  color: #FFA72B;
   font-family: 'Russo One', sans-serif;
   padding: 1rem;
   font-size: 1rem;
