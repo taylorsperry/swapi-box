@@ -5,8 +5,6 @@ import ButtonContainer from '../ButtonContainer/ButtonContainer.js'
 import CardContainer from '../CardContainer/CardContainer.js'
 import './_App.scss';
 
-// import PropTypes from 'prop-types'
-
 class App extends Component {
   constructor() {
     super();
@@ -14,7 +12,8 @@ class App extends Component {
       film: {},
       favorites: [],
       activeName: '',
-      activeItems: []
+      activeItems: [],
+      errorStatus: ''
     }
   };
 
@@ -30,7 +29,9 @@ class App extends Component {
       .then(response => response.json())
       .then(parsedFilms => this.selectFilm(parsedFilms.results))
       .catch(error => {
-        throw new Error(error.message)
+        this.setState({
+          errorStatus: 'Error fetching films'
+        })
       })
   };
 
@@ -45,7 +46,7 @@ class App extends Component {
     this.setState({
       activeName: categoryName,
       activeItems: categoryInfo
-    }, () => console.log(this.state))
+    })
   }
 
   addFavorite = (activeCard) => {
@@ -56,7 +57,7 @@ class App extends Component {
 
   displayFavorites = () => {
     this.setState({
-      activeName: 'favorites',
+      activeName: 'Favorites',
       activeItems: this.state.favorites
     })
   }
@@ -73,12 +74,5 @@ class App extends Component {
     );
   }
 }
-
-// IdeaCard.propTypes = {
-//   removeIdea: PropTypes.func.isRequired,
-//   title: PropTypes.string.isRequired,
-//   body: PropTypes.string.isRequired,
-//   id: PropTypes.number.isRequired
-// }
 
 export default App;
