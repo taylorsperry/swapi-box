@@ -48,7 +48,7 @@ class App extends Component {
     this.setState({
       activeName: categoryName,
       activeItems: categoryInfo
-    }, () => console.log(this.state))
+    })
   }
 
   addFavorite = (activeCard) => {
