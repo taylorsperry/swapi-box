@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../Card/Card.js'
+import PropTypes from 'prop-types'
 
 const CardContainer = (props) => {
     const activeName = props.activeName
@@ -15,4 +16,9 @@ const CardContainer = (props) => {
     );
 };
 
+CardContainer.propTypes = {
+    activeName: PropTypes.string.isRequired,
+    // activeItems: PropTypes.array.isRequired,
+    addFavorite: PropTypes.func.isRequired
+}
 export default CardContainer;

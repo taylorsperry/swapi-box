@@ -5,8 +5,6 @@ import ButtonContainer from '../ButtonContainer/ButtonContainer.js'
 import CardContainer from '../CardContainer/CardContainer.js'
 import './_App.scss';
 
-// import PropTypes from 'prop-types'
-
 class App extends Component {
   constructor() {
     super();
@@ -76,12 +74,5 @@ class App extends Component {
     );
   }
 }
-
-// IdeaCard.propTypes = {
-//   removeIdea: PropTypes.func.isRequired,
-//   title: PropTypes.string.isRequired,
-//   body: PropTypes.string.isRequired,
-//   id: PropTypes.number.isRequired
-// }
 
 export default App;

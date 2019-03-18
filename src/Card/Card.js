@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Card = (props) => {
     const {activeCard} = props
@@ -87,6 +88,10 @@ const Card = (props) => {
                 </article>
             )
     }
+}
+
+Card.propTypes = {
+    activeCard: PropTypes.object.isRequired
 }
 
 export default Card;

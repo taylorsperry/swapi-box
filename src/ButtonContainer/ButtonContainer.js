@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 
 class ButtonContainer extends Component {
     constructor(props) {
@@ -182,5 +183,11 @@ class ButtonContainer extends Component {
     );
     }
 };
+
+ButtonContainer.propTypes = {
+    makeActive: PropTypes.func.isRequired,
+    favCount: PropTypes.number,
+    displayFavs: PropTypes.func.isRequired
+}
 
 export default ButtonContainer;
