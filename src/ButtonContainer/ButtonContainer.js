@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { promised } from 'q';
 
 class ButtonContainer extends Component {
     constructor(props) {
@@ -20,11 +19,11 @@ class ButtonContainer extends Component {
             .then(refinedPeople => this.fetchSpecies(refinedPeople))
             .then(withSpecies => this.fetchHomeworld(withSpecies))
             .then(withHomeworld => this.props.makeActive(withHomeworld, 'People'))
-                .catch(error => {
-                    this.setState({
-                        errorStatus: 'Error fetching people'
-                    })
+            .catch(error => {
+                this.setState({
+                    errorStatus: 'Error fetching people'
                 })
+            })
     }
 
     refinePeople = (parsedPeople) => {
@@ -46,6 +45,11 @@ class ButtonContainer extends Component {
             return fetch(person.species)
                 .then(response => response.json())
                 .then(parsedSpecies => ({...person, species: parsedSpecies.name}))
+                .catch(error => {
+                    this.setState({
+                        errorStatus: 'Error fetching people'
+                    })
+                })
             })
         return Promise.all(species)
     }
@@ -55,6 +59,11 @@ class ButtonContainer extends Component {
             return fetch(person.homeworld)
                 .then(response => response.json())
                 .then(parsedHomeworld => ({...person, homeworld: parsedHomeworld.name, population: parsedHomeworld.population}))
+                .catch(error => {
+                    this.setState({
+                        errorStatus: 'Error fetching people'
+                    })
+                })    
             })
         return Promise.all(homeworld)
     }
@@ -68,7 +77,12 @@ class ButtonContainer extends Component {
             .then(parsedPlanets => this.refinePlanets(parsedPlanets.results))
             .then(refinedPlanets => this.fetchResidents(refinedPlanets))
             .then(withResidentNames => this.props.makeActive(withResidentNames, 'Planets'))
-    }
+            .catch(error => {
+                this.setState({
+                    errorStatus: 'Error fetching planets'
+                })
+            })
+        }
 
     refinePlanets = (parsedPlanets) => {
         this.setState({
@@ -92,7 +106,12 @@ class ButtonContainer extends Component {
             let residentApis = planet.residents;
             return this.getNames(residentApis)
                 .then(unresolvedNames => ({...planet, residents: unresolvedNames}))
-        })
+                .catch(error => {
+                    this.setState({
+                        errorStatus: 'Error fetching planets'
+                    })
+                })
+            })
         return Promise.all(withPlanets)
     }
 
@@ -101,6 +120,11 @@ class ButtonContainer extends Component {
             return fetch(residentApi)
                 .then(response => response.json())
                 .then(parsedName => parsedName.name)
+                .catch(error => {
+                    this.setState({
+                        errorStatus: 'Error fetching planets'
+                    })
+                })
         })
         return Promise.all(residentNames)
     }
@@ -113,7 +137,12 @@ class ButtonContainer extends Component {
             .then(response => response.json())
             .then(parsedVehicles => this.refineVehicles(parsedVehicles.results))
             .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'Vehicles'))
-    }
+            .catch(error => {
+                this.setState({
+                    errorStatus: 'Error fetching vehicles'
+                })
+            })
+        }
 
     refineVehicles = (parsedVehicles) => {
         this.setState({

@@ -109,6 +109,19 @@ describe('ButtonContainer', () => {
             })
         })
 
+        it('sets the correct error message when fetch fails', () => {
+            //setup
+            fetch = jest.fn().mockImplementation(() => Promise.resolve({
+                json: () => Promise.reject()
+            }))
+
+            //execution
+            wrapper.instance().fetchPeople().then(() => {
+                //expectation
+                expect(wrapper.state('errorStatus')).toEqual('Error fetching people')
+            })
+        })
+
         //refinePeople
         it.skip('returns an array of objects with keys of cardStyle, name, homeworld, and species', () => {
             //execution
@@ -132,6 +145,19 @@ describe('ButtonContainer', () => {
             })
         })
 
+        it('sets the correct error message when fetch fails', () => {
+            //setup
+            fetch = jest.fn().mockImplementation(() => Promise.resolve({
+                json: () => Promise.reject()
+            }))
+
+            //execution
+            wrapper.instance().fetchSpecies(mockRefinedPeople).then(() => {
+                //expectation
+                expect(wrapper.state('errorStatus')).toEqual('Error fetching people')
+            })
+        })
+
         //fetchHomeworld
         it('fetches the homeworld data for each object in the passed array', () => {
             //setup
@@ -140,9 +166,22 @@ describe('ButtonContainer', () => {
                 json: () => Promise.resolve(mockWithHomeworld)
             }))
             //execution
-            let expectedResult = wrapper.instance().fetchSpecies(mockSpecies).then(() => {
+            let expectedResult = wrapper.instance().fetchHomeworld(mockSpecies).then(() => {
                 //expectation
                 expect(expectedResult).toEqual(mockWithHomeworld)
+            })
+        })
+
+        it('sets the correct error message when fetch fails', () => {
+            //setup
+            fetch = jest.fn().mockImplementation(() => Promise.resolve({
+                json: () => Promise.reject()
+            }))
+
+            //execution
+            wrapper.instance().fetchHomeworld(mockSpecies).then(() => {
+                //expectation
+                expect(wrapper.state('errorStatus')).toEqual('Error fetching people')
             })
         })
     
