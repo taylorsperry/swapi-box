@@ -5,7 +5,8 @@ class ButtonContainer extends Component {
     constructor(props) {
         super(props);
             this.state = {
-                active: ''
+                active: '',
+                errorStatus: ''
             }
     }
 
@@ -13,21 +14,23 @@ class ButtonContainer extends Component {
 
     fetchPeople = () => {
         const url = 'https://swapi.co/api/people'
-        fetch(url)
+        return fetch(url)
             .then(response => response.json())
             .then(parsedPeople => this.refinePeople(parsedPeople.results))
             .then(refinedPeople => this.fetchSpecies(refinedPeople))
             .then(withSpecies => this.fetchHomeworld(withSpecies))
             .then(withHomeworld => this.props.makeActive(withHomeworld, 'People'))
-            .catch(error => {
-                throw new Error(error.message)
-            })
-        this.setState({
-            active: 'People'
-        })
+                .catch(error => {
+                    this.setState({
+                        errorStatus: 'Error fetching people'
+                    })
+                })
     }
 
     refinePeople = (parsedPeople) => {
+        this.setState({
+            active: 'People'
+        });
         let refinedPeople = parsedPeople.map(person => {
             return {
                 cardStyle: 'People',
@@ -60,17 +63,17 @@ class ButtonContainer extends Component {
 
     fetchPlanets = () => {
         const url = 'https://swapi.co/api/planets'
-        fetch(url)
+        return fetch(url)
             .then(response => response.json())
             .then(parsedPlanets => this.refinePlanets(parsedPlanets.results))
             .then(refinedPlanets => this.fetchResidents(refinedPlanets))
             .then(withResidentNames => this.props.makeActive(withResidentNames, 'Planets'))
-        this.setState({
-            active: 'Planets'
-        })
     }
 
     refinePlanets = (parsedPlanets) => {
+        this.setState({
+            active: 'Planets'
+        });
         let refinedPlanets = parsedPlanets.map(planet => {
             return {
                 cardStyle: 'Planets',
@@ -106,16 +109,16 @@ class ButtonContainer extends Component {
 
     fetchVehicles = () => {
         const url = 'https://swapi.co/api/vehicles'
-        fetch(url)
+        return fetch(url)
             .then(response => response.json())
             .then(parsedVehicles => this.refineVehicles(parsedVehicles.results))
             .then(refinedVehicles => this.props.makeActive(refinedVehicles, 'Vehicles'))
-        this.setState({
-            active: 'Vehicles'
-        })
     }
 
     refineVehicles = (parsedVehicles) => {
+        this.setState({
+            active: 'Vehicles'
+        });
         let refinedVehicles = parsedVehicles.map(vehicle => {
             return {
                 cardStyle: 'Vehicles',
