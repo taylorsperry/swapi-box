@@ -4,6 +4,8 @@ import Film from '../Film/Film.js'
 import ButtonContainer from '../ButtonContainer/ButtonContainer.js'
 import CardContainer from '../CardContainer/CardContainer.js'
 import './_App.scss';
+import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class App extends Component {
   constructor() {
@@ -69,10 +71,28 @@ class App extends Component {
         <Header />
         <Film film={film} />
         <ButtonContainer makeActive={this.makeActive} favCount={this.state.favorites.length} displayFavs={this.displayFavorites}/>
-        <CardContainer activeName={activeName} activeItems={activeItems} addFavorite={this.addFavorite}/>
+        <Route 
+          exact path='/people'
+          render={() => <CardContainer cards={this.props.people} />}
+        />
+        <Route 
+          exact path='/vehicles' 
+          render={() => <CardContainer cards={this.props.vehicles} />}
+        />
+        <Route 
+          exact path='/planets'
+          render={() => <CardContainer cards={this.props.planets} />}
+        />
+        {/* <CardContainer activeName={activeName} activeItems={activeItems} addFavorite={this.addFavorite}/> */}
       </div>
     );
   }
 }
 
-export default App;
+export const mapStateToProps = state => ({
+  vehicles: state.vehicles,
+  planets: state.planets,
+  people: state.people,
+})
+
+export default connect(mapStateToProps)(App);
