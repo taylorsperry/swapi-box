@@ -36,13 +36,13 @@ class ButtonContainer extends Component {
 
 
 
-    //fetching planets 
-    displayPlanets = () => {
-      const { planets } = this.props;
-      if(!planets.length) {
-        this.getPlanets()
-      }
+  //fetching planets 
+  displayPlanets = () => {
+    const { planets } = this.props;
+    if(!planets.length) {
+      this.getPlanets()
     }
+  }
 
     getPlanets = async () => {
         const url = 'https://swapi.co/api/planets'
