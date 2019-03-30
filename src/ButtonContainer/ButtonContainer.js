@@ -26,13 +26,12 @@ class ButtonContainer extends Component {
     const url = 'https://swapi.co/api/people'
     try {
       const people = await fetchPeople(url)
-      console.log(people)
-      this.storePeople(people)
+      this.props.storePeople(people)
     } catch (error) {
       this.setState({
         errorMsg: error.message
       })
-    }
+    } 
   }
 
 
@@ -91,7 +90,6 @@ class ButtonContainer extends Component {
     render() {
     return (
         <section className="btn-container">
-            <button className={this.state.active === 'People' ? 'button active' : 'button'} name='People'onClick={this.fetchPeople}>People</button>
             <NavLink to='/people' className='button' name='people' onClick={this.displayPeople}>People</NavLink>
             <NavLink to='/planets' className='button' name='planets' onClick={this.displayPlanets}>Planets</NavLink>
             <NavLink to='/vehicles' className='button' name="vehicles" onClick={this.displayVehicles}>Vehicles</NavLink>
