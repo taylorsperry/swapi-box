@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom'
 import { storeVehicles, storePlanets, storePeople } from '../actions/index'
 
-class ButtonContainer extends Component {
+export class ButtonContainer extends Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -90,7 +90,7 @@ class ButtonContainer extends Component {
     render() {
     return (
         <section className="btn-container">
-            <NavLink to='/people' className='button' name='people' onClick={this.displayPeople}>People</NavLink>
+            <NavLink to='/people' className='button' name='people' id='people' onClick={this.displayPeople}>People</NavLink>
             <NavLink to='/planets' className='button' name='planets' onClick={this.displayPlanets}>Planets</NavLink>
             <NavLink to='/vehicles' className='button' name="vehicles" onClick={this.displayVehicles}>Vehicles</NavLink>
             <button className={this.state.active === 'Favorites' ? 'button active' : 'button'} name='Favorites'onClick={this.selectFavorites}>{this.props.favCount} Favorites</button>
@@ -113,8 +113,8 @@ export const mapDispatchToProps = (dispatch) => ({
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ButtonContainer));
 
-ButtonContainer.propTypes = {
-    makeActive: PropTypes.func.isRequired,
-    favCount: PropTypes.number,
-    displayFavs: PropTypes.func.isRequired
-}
+// ButtonContainer.propTypes = {
+//     makeActive: PropTypes.func.isRequired,
+//     favCount: PropTypes.number,
+//     displayFavs: PropTypes.func.isRequired
+// }

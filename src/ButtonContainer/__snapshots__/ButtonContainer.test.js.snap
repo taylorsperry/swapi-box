@@ -1,7 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ButtonContainer matches the snapshot 1`] = `
-<Route>
-  <Component />
-</Route>
+<section
+  className="btn-container"
+>
+  <NavLink
+    className="button"
+    id="people"
+    name="people"
+    onClick={[Function]}
+    to="/people"
+  >
+    People
+  </NavLink>
+  <NavLink
+    className="button"
+    name="planets"
+    onClick={[Function]}
+    to="/planets"
+  >
+    Planets
+  </NavLink>
+  <NavLink
+    className="button"
+    name="vehicles"
+    onClick={[Function]}
+    to="/vehicles"
+  >
+    Vehicles
+  </NavLink>
+  <button
+    className="button"
+    name="Favorites"
+    onClick={[Function]}
+  >
+     Favorites
+  </button>
+</section>
 `;
