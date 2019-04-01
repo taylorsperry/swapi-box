@@ -1,18 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Card = (props) => {
-    const {activeCard} = props
-    let style = activeCard.cardStyle
-    ;
+const Card = ( card ) => {
+    let style = card.cardStyle;
+    
+    // const {activeCard} = props
+    // let style = activeCard.cardStyle
     switch(style) {
         case 'People':
-            const {name, homeworld, species, population} = activeCard
+            const {name, homeworld, species, population} = card
             return (
                 <article className='card'>
                     <h3 className='card-title'>
                         {name}
-                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
+                        <button className='fav-btn'>+</button>
                     </h3>
                     <p className='card-detail'>
                         <span className='label'>Homeworld: </span> 
@@ -29,13 +30,13 @@ const Card = (props) => {
                 </article>
             )
         case 'Planets': 
-            const {planetName, terrain, planetPopulation, climate} = activeCard
-            const allResidents = activeCard.residents
+            const { planetName, terrain, planetPopulation, climate } = card
+            const allResidents = card.residents
             return (
                 <article className='card'>
                     <h3 className='card-title'>
                         {planetName}
-                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
+                        <button className='fav-btn'>+</button>
                     </h3>
                     <p className='card-detail'>
                         <span className='label'>Terrain: </span>
@@ -60,38 +61,38 @@ const Card = (props) => {
                 </article>
             )
         case 'Vehicles':
-            const {vehicleName, model, vehicleClass, passengers} = activeCard
-            return (
-                <article className='card'>
-                    <h3 className='card-title'>
-                        {vehicleName}
-                        <button className='fav-btn' onClick={() => props.addFavorite(activeCard)}>+</button>
-                    </h3>
-                    <p className='card-detail'>
-                        <span className='label'>Model: </span>
-                        {model}
-                    </p>
-                    <p className='card-detail'>
-                        <span className='label'>Class: </span>
-                        {vehicleClass}
-                    </p>
-                    <p className='card-detail'>
-                        <span className='label'>Passengers: </span>
-                        {passengers}
-                    </p>
-                </article>
-            )
+          const {vehicleName, model, vehicleClass, passengers} = card
+          return (
+            <article className='card'>
+              <h3 className='card-title'>
+                {vehicleName}
+                <button className='fav-btn'>+</button>
+              </h3>
+              <p className='card-detail'>
+                <span className='label'>Model: </span>
+                {model}
+              </p>
+              <p className='card-detail'>
+                <span className='label'>Class: </span>
+                {vehicleClass}
+              </p>
+              <p className='card-detail'>
+                <span className='label'>Passengers: </span>
+                {passengers}
+              </p>
+            </article>
+          )
         default: 
-            return (
-                <article className='card'>
-                    'Something went wrong'
-                </article>
+          return (
+            <article className='card'>
+              <h3 className='card-title'>Error displaying vehicles</h3>        
+            </article>
             )
     }
 }
 
-Card.propTypes = {
-    activeCard: PropTypes.object.isRequired
-}
+// Card.propTypes = {
+//     card: PropTypes.object.isRequired
+// }
 
 export default Card;
